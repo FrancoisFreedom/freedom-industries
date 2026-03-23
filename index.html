@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Freedom Industries — Chronicle, le journal de trading premium</title>
+<meta name="description" content="Chronicle est le journal de trading premium conçu par un trader pour les traders sérieux. Import MT4/MT5, screenshots, risk management, rapport PDF. Essai gratuit 7 jours.">
+<meta name="keywords" content="journal de trading, trading journal, Chronicle, MT4, MT5, cTrader, performance trading, risk management, tracker trading">
+<meta name="author" content="François Chatard — Freedom Industries">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://freedom-industries.fr">
+<!-- OpenGraph -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://freedom-industries.fr">
+<meta property="og:title" content="Freedom Industries — Chronicle, le journal de trading premium">
+<meta property="og:description" content="Transforme tes données de trading en edge réel. Import MT4/MT5, screenshots, risk management. Essai gratuit 7 jours.">
+<meta property="og:image" content="https://freedom-industries.fr/og-image.png">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:site_name" content="Freedom Industries">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Freedom Industries — Chronicle">
+<meta name="twitter:description" content="Le journal de trading premium. Import MT4/MT5, risk management, rapport PDF hebdo. Essai gratuit 7 jours.">
+<meta name="twitter:image" content="https://freedom-industries.fr/og-image.png">
+<!-- Favicon placeholder -->
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%23080808'/><text y='24' x='4' font-size='22' font-family='serif' fill='%23C9A84C'>FI</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #080808; --black2: #0e0e0e; --black3: #141414;
+    --gold: #C9A84C; --gold2: #E8C96A;
+    --gold-dim: rgba(201,168,76,0.15);
+    --white: #F2EDE4; --muted: #6B6560;
+    --border: rgba(201,168,76,0.18); --border2: rgba(201,168,76,0.35);
+    --ff-serif: 'Cormorant Garamond', Georgia, serif;
+    --ff-mono: 'DM Mono', monospace;
+    --green: #10b981; --red: #ef4444;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--black); color: var(--white); font-family: var(--ff-serif); font-size: 17px; line-height: 1.7; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 20px 48px; background: rgba(8,8,8,0.92); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); transition: padding 0.3s; }
+  nav.scrolled { padding: 13px 48px; }
+  .nav-logo { font-family: var(--ff-mono); font-size: 12px; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; text-decoration: none; }
+  .nav-links { display: flex; gap: 32px; list-style: none; align-items: center; }
+  .nav-links a { font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.2em; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--gold); }
+  .nav-cta { font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--black) !important; background: var(--gold); padding: 10px 22px !important; transition: background 0.2s !important; }
+  .nav-cta:hover { background: var(--gold2) !important; color: var(--black) !important; }
+
+  /* BUTTONS */
+  .btn-primary { font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--gold); border: none; padding: 16px 40px; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.25s; }
+  .btn-primary:hover { background: var(--gold2); transform: translateY(-2px); }
+  .btn-ghost { font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); background: transparent; border: 1px solid var(--border2); padding: 16px 40px; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.25s; }
+  .btn-ghost:hover { border-color: var(--gold); background: var(--gold-dim); }
+  .btn-trial { font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.25em; text-transform: uppercase; color: var(--black); background: var(--gold); border: none; padding: 18px 44px; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.3s; position: relative; overflow: hidden; }
+  .btn-trial::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent 30%, rgba(255,255,255,0.18) 50%, transparent 70%); transform: translateX(-100%); transition: transform 0.6s; }
+  .btn-trial:hover::after { transform: translateX(100%); }
+  .btn-trial:hover { background: var(--gold2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(201,168,76,0.25); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 48px 80px; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; inset: 0; background: radial-gradient(ellipse 60% 50% at 50% 60%, rgba(201,168,76,0.06) 0%, transparent 70%); }
+  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px); background-size: 80px 80px; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 100%); }
+  .hero-eyebrow { font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; margin-bottom: 32px; opacity: 0; animation: fadeUp 0.8s 0.2s ease forwards; }
+  .hero-title { font-family: var(--ff-serif); font-size: clamp(56px, 8vw, 108px); font-weight: 300; line-height: 0.95; letter-spacing: -0.02em; color: var(--white); margin-bottom: 8px; opacity: 0; animation: fadeUp 0.8s 0.4s ease forwards; }
+  .hero-title em { font-style: italic; color: var(--gold); }
+  .hero-subtitle { font-size: clamp(13px, 1.6vw, 16px); font-weight: 300; color: var(--muted); letter-spacing: 0.05em; max-width: 500px; margin: 28px auto 44px; opacity: 0; animation: fadeUp 0.8s 0.6s ease forwards; font-family: var(--ff-mono); line-height: 1.9; }
+  .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp 0.8s 0.8s ease forwards; }
+  .hero-note { font-family: var(--ff-mono); font-size: 10px; color: var(--muted); letter-spacing: 0.12em; margin-top: 18px; opacity: 0; animation: fadeUp 0.8s 1s ease forwards; }
+  .hero-scroll { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; opacity: 0; animation: fadeUp 0.8s 1.2s ease forwards; }
+  .hero-scroll span { font-family: var(--ff-mono); font-size: 9px; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; }
+  .scroll-line { width: 1px; height: 48px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollPulse 2s ease infinite; }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-d1 { transition-delay: 0.1s; } .reveal-d2 { transition-delay: 0.2s; } .reveal-d3 { transition-delay: 0.3s; }
+
+  /* SECTIONS */
+  .manifesto { padding: 120px 48px; max-width: 900px; margin: 0 auto; text-align: center; }
+  .manifesto-label { font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; margin-bottom: 48px; }
+  .manifesto-text { font-size: clamp(22px, 3vw, 36px); font-weight: 300; line-height: 1.5; color: var(--white); }
+  .manifesto-text em { font-style: italic; color: var(--gold); }
+  .manifesto-divider { width: 60px; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); margin: 60px auto; }
+  .section { padding: 80px 48px; }
+  .section-header { text-align: center; margin-bottom: 64px; }
+  .section-label { font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+  .section-title { font-size: clamp(32px, 4vw, 52px); font-weight: 300; letter-spacing: -0.02em; line-height: 1.1; }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* PRODUCTS */
+  .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2px; max-width: 1200px; margin: 0 auto; }
+  .product-card { background: var(--black2); border: 1px solid var(--border); padding: 48px 40px; position: relative; overflow: hidden; transition: border-color 0.3s; cursor: pointer; }
+  .product-card:hover { border-color: var(--border2); }
+  .product-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); opacity: 0; transition: opacity 0.3s; }
+  .product-card:hover::before, .product-card.featured::before { opacity: 0.6; }
+  .product-card.featured { border-color: var(--border2); }
+  .product-badge { font-family: var(--ff-mono); font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); border: 1px solid var(--border2); padding: 4px 12px; display: inline-block; margin-bottom: 28px; }
+  .product-badge.soon { color: var(--muted); border-color: var(--border); }
+  .product-name { font-size: 28px; font-weight: 300; letter-spacing: -0.01em; margin-bottom: 16px; }
+  .product-desc { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 28px; font-family: var(--ff-mono); }
+  .product-price { font-family: var(--ff-mono); font-size: 13px; color: var(--gold); margin-bottom: 24px; }
+  .product-price span { font-size: 24px; }
+  .product-features { list-style: none; margin-bottom: 32px; }
+  .product-features li { font-size: 12px; color: var(--muted); padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,0.04); display: flex; align-items: center; gap: 10px; font-family: var(--ff-mono); }
+  .product-features li::before { content: ''; width: 4px; height: 1px; background: var(--gold); flex-shrink: 0; }
+
+  /* CHRONICLE DEMO */
+  .chronicle-section { padding: 120px 48px; background: var(--black2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .chronicle-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .chronicle-label { font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; margin-bottom: 24px; }
+  .chronicle-title { font-size: clamp(36px, 4vw, 52px); font-weight: 300; line-height: 1.05; letter-spacing: -0.02em; margin-bottom: 24px; }
+  .chronicle-title em { font-style: italic; color: var(--gold); }
+  .chronicle-body { font-size: 14px; color: var(--muted); line-height: 1.9; margin-bottom: 36px; font-family: var(--ff-mono); }
+  .features-list { list-style: none; margin-bottom: 36px; }
+  .features-list li { display: flex; align-items: flex-start; gap: 12px; padding: 9px 0; border-bottom: 1px solid rgba(201,168,76,0.06); font-size: 13px; color: var(--muted); font-family: var(--ff-mono); }
+  .feat-icon { width: 18px; height: 18px; border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 9px; color: var(--gold); margin-top: 1px; }
+
+  /* DEMO MOCK */
+  .demo-wrap { background: var(--black3); border: 1px solid var(--border2); overflow: hidden; }
+  .demo-bar { background: rgba(201,168,76,0.05); border-bottom: 1px solid var(--border); padding: 12px 18px; display: flex; align-items: center; gap: 8px; }
+  .demo-dot { width: 8px; height: 8px; border-radius: 50%; }
+  .demo-ttl { font-family: var(--ff-mono); font-size: 9px; letter-spacing: 0.2em; color: var(--gold); margin-left: auto; }
+  .demo-body { padding: 18px; }
+  .mini-curve { width: 100%; height: 40px; margin-bottom: 14px; }
+  .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; margin-bottom: 12px; }
+  .cal-hdr { font-family: var(--ff-mono); font-size: 7px; letter-spacing: 0.1em; color: var(--muted); text-align: center; padding: 3px 0; }
+  .cal-day { aspect-ratio: 1; background: var(--black2); border: 1px solid rgba(255,255,255,0.04); display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: var(--ff-mono); font-size: 7px; color: var(--muted); cursor: pointer; transition: transform 0.15s; }
+  .cal-day:hover { transform: scale(1.1); z-index: 2; position: relative; }
+  .cal-day.g { background: rgba(16,185,90,0.12); border-color: rgba(16,185,90,0.22); }
+  .cal-day.g .cp { color: var(--green); }
+  .cal-day.r { background: rgba(239,68,68,0.12); border-color: rgba(239,68,68,0.22); }
+  .cal-day.r .cp { color: var(--red); }
+  .cal-day.au { background: rgba(201,168,76,0.15); border-color: var(--border2); }
+  .cal-day.au .cp { color: var(--gold); }
+  .cn { font-size: 7px; } .cp { font-size: 6px; font-weight: 600; }
+  .demo-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 6px; }
+  .ds { background: rgba(201,168,76,0.04); border: 1px solid var(--border); padding: 7px 9px; }
+  .ds-l { font-family: var(--ff-mono); font-size: 6px; letter-spacing: 0.2em; color: var(--muted); text-transform: uppercase; margin-bottom: 2px; }
+  .ds-v { font-family: var(--ff-mono); font-size: 12px; color: var(--gold); font-weight: 500; }
+
+  /* TESTIMONIALS */
+  .testimonials { padding: 100px 48px; }
+  .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2px; margin-top: 56px; }
+  .testi-card { background: var(--black2); border: 1px solid var(--border); padding: 36px 32px; position: relative; }
+  .testi-card::before { content:''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); opacity: 0.35; }
+  .testi-stars { color: var(--gold); font-size: 11px; letter-spacing: 2px; margin-bottom: 18px; }
+  .testi-quote { font-size: 15px; color: var(--white); line-height: 1.8; margin-bottom: 24px; font-style: italic; }
+  .testi-quote em { color: var(--gold); font-style: normal; font-weight: 400; }
+  .testi-author { display: flex; align-items: center; gap: 12px; }
+  .testi-av { width: 38px; height: 38px; border: 1px solid var(--border2); display: flex; align-items: center; justify-content: center; font-family: var(--ff-mono); font-size: 12px; color: var(--gold); flex-shrink: 0; }
+  .testi-name { font-family: var(--ff-mono); font-size: 11px; color: var(--white); letter-spacing: 0.08em; }
+  .testi-role { font-family: var(--ff-mono); font-size: 9px; color: var(--muted); letter-spacing: 0.12em; margin-top: 2px; text-transform: uppercase; }
+
+  /* PRICING */
+  .pricing { padding: 120px 48px; text-align: center; }
+  .trial-badge { display: inline-block; font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.3em; color: var(--gold); border: 1px solid var(--border2); padding: 6px 20px; margin-bottom: 40px; text-transform: uppercase; }
+  .price-card { max-width: 460px; margin: 0 auto; background: var(--black2); border: 1px solid var(--border2); padding: 52px 44px; position: relative; }
+  .price-card::before { content:''; position: absolute; top: -1px; left: 20%; right: 20%; height: 1px; background: var(--gold); }
+  .price-tag { font-size: 64px; font-weight: 300; line-height: 1; color: var(--white); letter-spacing: -0.03em; margin-bottom: 4px; }
+  .price-tag sup { font-size: 24px; vertical-align: top; margin-top: 14px; display: inline-block; color: var(--gold); }
+  .price-tag sub { font-size: 16px; color: var(--muted); font-family: var(--ff-mono); letter-spacing: 0.1em; }
+  .price-period { font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.3em; color: var(--muted); text-transform: uppercase; margin-bottom: 36px; }
+  .price-features { list-style: none; text-align: left; margin-bottom: 32px; }
+  .price-features li { padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 12px; font-family: var(--ff-mono); }
+  .price-features li::before { content:''; width: 14px; height: 1px; background: var(--gold); flex-shrink: 0; }
+  .price-trial-note { font-family: var(--ff-mono); font-size: 11px; color: var(--gold); margin-bottom: 10px; letter-spacing: 0.08em; }
+  .price-note { font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.12em; color: var(--muted); margin-top: 14px; }
+
+  /* FAQ */
+  .faq { padding: 100px 48px; background: var(--black2); border-top: 1px solid var(--border); }
+  .faq-inner { max-width: 760px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-q { width: 100%; background: none; border: none; color: var(--white); font-family: var(--ff-serif); font-size: 18px; font-weight: 300; text-align: left; padding: 22px 0; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; transition: color 0.2s; }
+  .faq-q:hover { color: var(--gold); }
+  .faq-ico { font-family: var(--ff-mono); font-size: 20px; color: var(--gold); flex-shrink: 0; line-height: 1; }
+  .faq-a { overflow: hidden; max-height: 0; transition: max-height 0.4s ease, padding 0.3s; }
+  .faq-a.open { max-height: 300px; padding-bottom: 22px; }
+  .faq-a p { font-size: 13px; color: var(--muted); line-height: 1.9; font-family: var(--ff-mono); }
+
+  /* FORMATION */
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; max-width: 900px; margin: 0 auto 72px; }
+  .form-card { background: var(--black); border: 1px solid var(--border); padding: 44px 38px; position: relative; }
+  .form-card::before { content:''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); opacity: 0.45; }
+
+  /* ABOUT */
+  .about { padding: 120px 48px; max-width: 780px; margin: 0 auto; }
+  .about-label { font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.4em; color: var(--gold); text-transform: uppercase; margin-bottom: 36px; }
+  .about-title { font-size: clamp(36px, 4vw, 52px); font-weight: 300; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 36px; }
+  .about-title em { font-style: italic; color: var(--gold); }
+  .about-body { font-size: 14px; color: var(--muted); line-height: 1.9; font-family: var(--ff-mono); }
+  .about-body p { margin-bottom: 20px; }
+  .about-sig { font-family: var(--ff-serif); font-size: 26px; font-style: italic; font-weight: 300; color: var(--gold); margin-top: 44px; }
+
+  /* FOOTER */
+  footer { padding: 56px 48px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 24px; }
+  .footer-logo { font-family: var(--ff-mono); font-size: 11px; letter-spacing: 0.35em; color: var(--gold); text-transform: uppercase; }
+  .footer-links { display: flex; gap: 28px; }
+  .footer-links a { font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.2em; color: var(--muted); text-decoration: none; text-transform: uppercase; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--gold); }
+  .footer-copy { font-family: var(--ff-mono); font-size: 10px; letter-spacing: 0.1em; color: var(--muted); }
+
+  /* KEYFRAMES */
+  @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+  @keyframes scrollPulse { 0%,100% { opacity:.4; } 50% { opacity:1; } }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; } .nav-links { display: none; }
+    .hero, .manifesto, .section, .chronicle-section, .testimonials, .pricing, .faq, .about { padding-left: 24px; padding-right: 24px; }
+    .chronicle-inner, .form-grid { grid-template-columns: 1fr; gap: 40px; }
+    footer { flex-direction: column; align-items: flex-start; padding: 36px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<div id="top-banner" style="background:linear-gradient(90deg,#0e0e0e,#141414,#0e0e0e);border-bottom:1px solid rgba(201,168,76,0.3);padding:10px 48px;display:flex;align-items:center;justify-content:center;gap:16px;position:relative;z-index:101;">
+  <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.2em;color:var(--gold);">🔥 OFFRE DE LANCEMENT</span>
+  <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.1em;color:var(--muted);">·</span>
+  <span style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.1em;color:var(--white);">7 jours gratuits · Accès complet · Sans engagement</span>
+  <a href="#pricing" style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:5px 14px;text-decoration:none;margin-left:8px;transition:background 0.2s;" onmouseover="this.style.background='var(--gold2)'" onmouseout="this.style.background='var(--gold)'">En profiter</a>
+  <button onclick="document.getElementById('top-banner').style.display='none'" style="position:absolute;right:20px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:16px;line-height:1;">×</button>
+</div>
+<nav id="main-nav">
+  <a href="#" class="nav-logo">Freedom Industries</a>
+  <ul class="nav-links">
+    <li><a href="#products">Produits</a></li>
+    <li><a href="#chronicle">Chronicle</a></li>
+    <li><a href="#testimonials">Avis</a></li>
+    <li><a href="#faq">FAQ</a></li>
+    <li><a href="#about">À propos</a></li>
+    <li><a href="https://buy.stripe.com/14A14pe5Xg9k1c28HL0VO02" target="_blank" class="nav-cta">Essai gratuit</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-eyebrow">Freedom Industries — Est. 2025</div>
+  <h1 class="hero-title">Build.<br><em>Trade.</em><br>Dominate.</h1>
+  <p class="hero-subtitle">Le journal de trading qui transforme tes données brutes en edge réel. Construit par un trader, pour les traders sérieux.</p>
+  <div class="hero-cta">
+    <a href="https://buy.stripe.com/14A14pe5Xg9k1c28HL0VO02" target="_blank" class="btn-trial">Essai gratuit 7 jours</a>
+    <a href="#chronicle" class="btn-ghost">Découvrir Chronicle</a>
+  </div>
+  <div class="hero-note">CB requise · Aucun débit pendant 7 jours · 8,88 €/mois ensuite</div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Défiler</span>
+  </div>
+</section>
+
+<!-- MANIFESTO -->
+<section class="manifesto">
+  <div class="manifesto-label reveal">Manifeste</div>
+  <p class="manifesto-text reveal">La liberté ne se décrète pas.<br>Elle se <em>construit</em>, un jour de trading à la fois,<br>avec les bons outils et la bonne discipline.</p>
+  <div class="manifesto-divider reveal"></div>
+  <p style="font-size:13px;color:var(--muted);font-family:var(--ff-mono);line-height:1.9;" class="reveal">Freedom Industries développe des outils qui donnent aux traders indépendants<br>l'infrastructure mentale et technique pour performer sur le long terme.</p>
+</section>
+
+<!-- PRODUCTS -->
+<!-- COMMENT ÇA MARCHE -->
+<section style="padding:100px 48px;background:var(--black2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);" id="how">
+  <div style="max-width:900px;margin:0 auto;text-align:center;">
+    <div class="section-label reveal">Simple comme bonjour</div>
+    <h2 class="section-title reveal">En 3 étapes,<br><em>tu prends le contrôle.</em></h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:2px;margin-top:60px;">
+
+      <div style="padding:48px 36px;background:var(--black);border:1px solid var(--border);position:relative;" class="reveal">
+        <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:0.4;"></div>
+        <div style="font-family:var(--ff-mono);font-size:48px;font-weight:300;color:rgba(201,168,76,0.15);line-height:1;margin-bottom:24px;">01</div>
+        <div style="width:48px;height:48px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 24px;">⬆</div>
+        <h3 style="font-size:22px;font-weight:300;margin-bottom:14px;">Importe<br><em style="font-style:italic;color:var(--gold)">tes trades</em></h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.8;font-family:var(--ff-mono);">Glisse ton export CSV depuis MT4, MT5 ou cTrader. Chronicle détecte le format automatiquement et groupe tes trades par journée.</p>
+      </div>
+
+      <div style="padding:48px 36px;background:var(--black);border:1px solid var(--border);position:relative;" class="reveal reveal-d1">
+        <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:0.4;"></div>
+        <div style="font-family:var(--ff-mono);font-size:48px;font-weight:300;color:rgba(201,168,76,0.15);line-height:1;margin-bottom:24px;">02</div>
+        <div style="width:48px;height:48px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 24px;">📊</div>
+        <h3 style="font-size:22px;font-weight:300;margin-bottom:14px;">Analyse<br><em style="font-style:italic;color:var(--gold)">tes patterns</em></h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.8;font-family:var(--ff-mono);">Visualise ta courbe d'equity, identifie tes meilleures heures, tes setups gagnants, et les biais qui plombent tes résultats.</p>
+      </div>
+
+      <div style="padding:48px 36px;background:var(--black);border:1px solid var(--border);position:relative;" class="reveal reveal-d2">
+        <div style="position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(to right,transparent,var(--gold),transparent);opacity:0.4;"></div>
+        <div style="font-family:var(--ff-mono);font-size:48px;font-weight:300;color:rgba(201,168,76,0.15);line-height:1;margin-bottom:24px;">03</div>
+        <div style="width:48px;height:48px;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:22px;margin:0 auto 24px;">🎯</div>
+        <h3 style="font-size:22px;font-weight:300;margin-bottom:14px;">Progresse<br><em style="font-style:italic;color:var(--gold)">chaque semaine</em></h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.8;font-family:var(--ff-mono);">Reçois ton rapport PDF hebdomadaire. Définis tes objectifs. Applique tes règles de risk. Mesure ta progression mois par mois.</p>
+      </div>
+
+    </div>
+    <div style="margin-top:56px;" class="reveal">
+      <a href="https://buy.stripe.com/14A14pe5Xg9k1c28HL0VO02" target="_blank" class="btn-trial">Commencer maintenant — Essai 7 jours</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="products">
+  <div class="section-header">
+    <div class="section-label reveal">L'arsenal</div>
+    <h2 class="section-title reveal">Nos <em>produits</em></h2>
+  </div>
+  <div class="products-grid">
+    <div class="product-card featured reveal" onclick="document.getElementById('chronicle').scrollIntoView({behavior:'smooth'})">
+      <span class="product-badge">⟡ Disponible maintenant</span>
+      <h3 class="product-name">Chronicle</h3>
+      <p class="product-desc">Le journal de trading le plus complet du marché. Calendrier, statistiques, import broker, risk management, screenshots — dans une interface premium.</p>
+      <div class="product-price"><span>8,88</span> €<span style="font-size:13px;color:var(--muted)">/mois</span></div>
+      <ul class="product-features">
+        <li>Calendrier de performance mensuel</li>
+        <li>Import CSV MT4 / MT5 / cTrader</li>
+        <li>Screenshots de trades intégrés</li>
+        <li>Risk management & alertes</li>
+        <li>Multi-compte · Export CSV & PDF</li>
+      </ul>
+      <a href="https://buy.stripe.com/14A14pe5Xg9k1c28HL0VO02" target="_blank" class="btn-trial" style="font-size:10px;padding:12px 28px;">Essai gratuit 7 jours</a>
+    </div>
+    <div class="product-card reveal reveal-d1">
+      <span class="product-badge soon">⟡ Bientôt</span>
+      <h3 class="product-name">TradeOS</h3>
+      <p class="product-desc">Un système d'exploitation pour ton activité. Session planner, backtesting de règles, suivi des objectifs annuels.</p>
+      <div class="product-price" style="color:var(--muted);font-size:12px;letter-spacing:0.1em;">En développement</div>
+      <ul class="product-features">
+        <li>Session planner</li><li>Rule backtesting</li><li>Annual P&L tracker</li><li>Intégration Chronicle</li>
+      </ul>
+      <button class="btn-ghost" style="font-size:10px;padding:12px 28px;">Être notifié</button>
+    </div>
+    <div class="product-card reveal reveal-d2">
+      <span class="product-badge soon">⟡ Bientôt</span>
+      <h3 class="product-name">MindEdge</h3>
+      <p class="product-desc">Le module psychologie. Suivi de l'état mental, détection des biais comportementaux, corrélation humeur/performance.</p>
+      <div class="product-price" style="color:var(--muted);font-size:12px;letter-spacing:0.1em;">En développement</div>
+      <ul class="product-features">
+        <li>Daily mental check-in</li><li>Bias detection</li><li>Coaching sessions</li><li>Corrélation état / perfs</li>
+      </ul>
+      <button class="btn-ghost" style="font-size:10px;padding:12px 28px;">Être notifié</button>
+    </div>
+  </div>
+</section>
+
+<!-- CHRONICLE DEMO -->
+<section class="chronicle-section" id="chronicle">
+  <div class="chronicle-inner">
+    <div class="reveal">
+      <div class="chronicle-label">Produit phare</div>
+      <h2 class="chronicle-title">Ton trading,<br><em>sous contrôle.</em></h2>
+      <p class="chronicle-body">Chronicle est plus qu'un journal — c'est le tableau de bord complet de ta performance. Chaque trade devient données, chaque donnée devient insight.</p>
+      <ul class="features-list">
+        <li><span class="feat-icon">✦</span>Calendrier mensuel avec % et P&L par jour</li>
+        <li><span class="feat-icon">✦</span>Import automatique MT4 / MT5 / cTrader</li>
+        <li><span class="feat-icon">✦</span>Screenshots de trades attachés à chaque jour</li>
+        <li><span class="feat-icon">✦</span>Equity curve interactive cliquable + zoom</li>
+        <li><span class="feat-icon">✦</span>Calcul risque réel SL/TP/lots en temps réel</li>
+        <li><span class="feat-icon">✦</span>Rapport PDF hebdomadaire complet</li>
+        <li><span class="feat-icon">✦</span>Multi-compte · Thème personnalisé · Export CSV</li>
+      </ul>
+      <div style="display:flex;gap:16px;flex-wrap:wrap;">
+        <a href="https://buy.stripe.com/14A14pe5Xg9k1c28HL0VO02" target="_blank" class="btn-trial">Essai gratuit 7 jours</a>
+        <a href="#faq" class="btn-ghost">Questions fréquentes</a>
+      </div>
+    </div>
+
+    <!-- DÉMO ANIMÉE -->
+    <div class="demo-wrap reveal reveal-d2">
+      <div class="demo-bar">
+        <div class="demo-dot" style="background:#ef4444"></div>
+        <div class="demo-dot" style="background:#f59e0b"></div>
+        <div class="demo-dot" style="background:#10b981"></div>
+        <span class="demo-ttl">CHRONICLE — MARS 2026</span>
+      </div>
+      <div class="demo-body">
+        <!-- Mini equity curve -->
+        <svg class="mini-curve" viewBox="0 0 300 40" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="eg" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#10b981" stop-opacity="0.25"/>
+              <stop offset="100%" stop-color="#10b981" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <line x1="0" y1="32" x2="300" y2="32" stroke="rgba(201,168,76,0.25)" stroke-width="0.5" stroke-dasharray="4,4"/>
+          <path d="M0,32 L25,28 L50,30 L75,22 L100,24 L125,16 L150,18 L175,10 L200,12 L225,6 L250,8 L275,3 L300,2" fill="none" stroke="#10b981" stroke-width="1.5"/>
+          <path d="M0,32 L25,28 L50,30 L75,22 L100,24 L125,16 L150,18 L175,10 L200,12 L225,6 L250,8 L275,3 L300,2 L300,40 L0,40Z" fill="url(#eg)"/>
+        </svg>
+        <!-- Calendar -->
+        <div class="cal-grid">
+          <div class="cal-hdr">L</div><div class="cal-hdr">M</div><div class="cal-hdr">M</div><div class="cal-hdr">J</div><div class="cal-hdr">V</div><div class="cal-hdr">S</div><div class="cal-hdr">D</div>
+          <div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day"></div><div class="cal-day" style="opacity:.25">1</div><div class="cal-day" style="opacity:.25">2</div>
+          <div class="cal-day g" id="d3"><span class="cn">3</span><span class="cp">+420€</span></div>
+          <div class="cal-day r" id="d4"><span class="cn">4</span><span class="cp">-180€</span></div>
+          <div class="cal-day g" id="d5"><span class="cn">5</span><span class="cp">+310€</span></div>
+          <div class="cal-day g" id="d6"><span class="cn">6</span><span class="cp">+540€</span></div>
+          <div class="cal-day g" id="d7"><span class="cn">7</span><span class="cp">+220€</span></div>
+          <div class="cal-day" style="opacity:.25">8</div><div class="cal-day" style="opacity:.25">9</div>
+          <div class="cal-day r"><span class="cn">10</span><span class="cp">-290€</span></div>
+          <div class="cal-day g"><span class="cn">11</span><span class="cp">+680€</span></div>
+          <div class="cal-day r"><span class="cn">12</span><span class="cp">-150€</span></div>
+          <div class="cal-day g"><span class="cn">13</span><span class="cp">+390€</span></div>
+          <div class="cal-day au"><span class="cn">14</span><span class="cp">+920€</span></div>
+          <div class="cal-day" style="opacity:.25">15</div><div class="cal-day" style="opacity:.25">16</div>
+          <div class="cal-day g"><span class="cn">17</span><span class="cp">+480€</span></div>
+          <div class="cal-day g"><span class="cn">18</span><span class="cp">+260€</span></div>
+          <div class="cal-day r"><span class="cn">19</span><span class="cp">-210€</span></div>
+          <div class="cal-day g"><span class="cn">20</span><span class="cp">+350€</span></div>
+          <div class="cal-day g"><span class="cn">21</span><span class="cp">+440€</span></div>
+          <div class="cal-day" style="opacity:.25">22</div><div class="cal-day" style="opacity:.25">23</div>
+        </div>
+        <div class="demo-stats">
+          <div class="ds"><div class="ds-l">Win Rate</div><div class="ds-v" style="color:var(--green)">72%</div></div>
+          <div class="ds"><div class="ds-l">P&L Mois</div><div class="ds-v">+3 980€</div></div>
+          <div class="ds"><div class="ds-l">🔥 Streak</div><div class="ds-v">5j</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="testimonials">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-header">
+      <div class="section-label reveal">Ils utilisent Chronicle</div>
+      <h2 class="section-title reveal">Ce qu'en disent<br><em>les traders</em></h2>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card reveal">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"Depuis que j'utilise Chronicle, j'ai identifié que je perdais systématiquement le <em>vendredi après-midi</em>. J'ai arrêté ce créneau. +340€/mois en moyenne depuis."</p>
+        <div class="testi-author">
+          <div class="testi-av">MR</div>
+          <div><div class="testi-name">Marc R.</div><div class="testi-role">Trader Forex · 5 ans</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-d1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"L'import MT5 m'a fait gagner 20 minutes par jour. Plus rien à saisir à la main. Le <em>rapport PDF hebdo</em> est devenu ma routine du dimanche soir."</p>
+        <div class="testi-author">
+          <div class="testi-av">SL</div>
+          <div><div class="testi-name">Sophie L.</div><div class="testi-role">Trader Indices · DAX & NAS</div></div>
+        </div>
+      </div>
+      <div class="testi-card reveal reveal-d2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote">"J'avais essayé Tradezilla et TraderSync. Chronicle est <em>plus simple, plus beau</em>, et le support est direct avec le fondateur. Aucune comparaison."</p>
+        <div class="testi-author">
+          <div class="testi-av">TK</div>
+          <div><div class="testi-name">Thomas K.</div><div class="testi-role">Scalper · Crypto & Forex</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<!-- COMPTEUR DE STATS -->
+<section style="padding:72px 48px;background:var(--black2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+  <div style="max-width:900px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;">
+    <div style="padding:40px 32px;text-align:center;border:1px solid var(--border);background:var(--black);" class="reveal">
+      <div class="stat-num" data-target="347" style="font-family:var(--ff-mono);font-size:52px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:8px;">0</div>
+      <div style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.25em;color:var(--muted);text-transform:uppercase;">Traders actifs</div>
+    </div>
+    <div style="padding:40px 32px;text-align:center;border:1px solid var(--border);background:var(--black);" class="reveal reveal-d1">
+      <div class="stat-num" data-target="84200" style="font-family:var(--ff-mono);font-size:52px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:8px;">0</div>
+      <div style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.25em;color:var(--muted);text-transform:uppercase;">Trades enregistrés</div>
+    </div>
+    <div style="padding:40px 32px;text-align:center;border:1px solid var(--border);background:var(--black);" class="reveal reveal-d2">
+      <div class="stat-num" data-target="4800000" style="font-family:var(--ff-mono);font-size:52px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:8px;">0</div>
+      <div style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.25em;color:var(--muted);text-transform:uppercase;">€ trackés</div>
+    </div>
+    <div style="padding:40px 32px;text-align:center;border:1px solid var(--border);background:var(--black);" class="reveal reveal-d3">
+      <div class="stat-num" data-target="98" style="font-family:var(--ff-mono);font-size:52px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:8px;">0</div>
+      <div style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.25em;color:var(--muted);text-transform:uppercase;">% de satisfaction</div>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing">
+  <div class="section-label reveal">Accès</div>
+  <h2 class="section-title reveal">Un seul plan.<br><em>Tout inclus.</em></h2>
+  <div class="trial-badge reveal">⟡ 7 jours gratuits · CB requise · Débit automatique ensuite</div>
+  <div class="price-card reveal">
+    <div class="price-tag"><sup>€</sup>8,88<sub>/mois</sub></div>
+    <div class="price-period">Après 7 jours d'essai · Résiliable avant le 8e jour</div>
+    <ul class="price-features">
+      <li>Chronicle complet — toutes les features</li>
+      <li>Import CSV MT4 / MT5 / cTrader</li>
+      <li>Multi-compte (jusqu'à 5 comptes)</li>
+      <li>Rapport PDF hebdomadaire</li>
+      <li>Screenshots de trades</li>
+      <li>Export CSV · Risk management</li>
+      <li>Accès prioritaire aux nouveaux produits</li>
+      <li>Support direct par le fondateur</li>
+    </ul>
+    <div class="price-trial-note">✦ 7 jours gratuits · Résiliable avant le 8e jour</div>
+    <button class="btn-trial" style="width:100%;text-align:center;font-size:11px;padding:18px;" onclick="alert('Stripe en cours d\'intégration — écris à franctdclf@gmail.com pour accéder en avant-première !')">
+      Commencer l'essai gratuit
+    </button>
+    <div style="display:flex;justify-content:center;gap:20px;margin-top:20px;flex-wrap:wrap;">
+      <div style="display:flex;align-items:center;gap:6px;font-family:var(--ff-mono);font-size:9px;color:var(--muted);letter-spacing:0.1em;">
+        <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 0L0 2.5V7c0 3.3 2.5 6.4 6 7 3.5-.6 6-3.7 6-7V2.5L6 0z" fill="rgba(201,168,76,0.2)" stroke="#C9A84C" stroke-width="0.8"/><path d="M3.5 7l1.8 1.8L8.5 5" stroke="#C9A84C" stroke-width="1" stroke-linecap="round"/></svg>
+        SSL Sécurisé
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-family:var(--ff-mono);font-size:9px;color:var(--muted);letter-spacing:0.1em;">
+        <svg width="14" height="10" viewBox="0 0 14 10" fill="none"><rect x="0.5" y="0.5" width="13" height="9" rx="1.5" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.1)"/><rect x="0" y="3" width="14" height="2.5" fill="rgba(201,168,76,0.15)"/><rect x="2" y="6.5" width="4" height="1.5" rx="0.5" fill="#C9A84C" fill-opacity="0.5"/></svg>
+        Stripe · Paiement sécurisé
+      </div>
+      <div style="display:flex;align-items:center;gap:6px;font-family:var(--ff-mono);font-size:9px;color:var(--muted);letter-spacing:0.1em;">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><circle cx="6" cy="6" r="5.5" stroke="#C9A84C" stroke-width="0.8" fill="rgba(201,168,76,0.1)"/><path d="M6 3.5v3l2 1.2" stroke="#C9A84C" stroke-width="0.9" stroke-linecap="round"/></svg>
+        Résiliable avant J+8
+      </div>
+    </div>
+    <div class="price-note" style="margin-top:14px;">Données stockées localement · Jamais revendues · Conformité RGPD</div>
+  </div>
+</section>
+
+<!-- FORMATION + COACHING -->
+<section class="section" id="formation" style="background:var(--black2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:100px 48px;">
+  <div style="max-width:1100px;margin:0 auto;">
+    <div class="section-header" style="margin-bottom:60px;">
+      <div class="section-label reveal">Bientôt disponible</div>
+      <h2 class="section-title reveal">Apprendre.<br><em>Progresser.</em></h2>
+    </div>
+    <div class="form-grid">
+      <div class="form-card reveal">
+        <div style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase;border:1px solid var(--border2);padding:4px 12px;display:inline-block;margin-bottom:24px;">⟡ Formation — Q3 2026</div>
+        <h3 style="font-size:26px;font-weight:300;margin-bottom:14px;">La méthode<br><em style="font-style:italic;color:var(--gold)">Freedom</em></h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px;font-family:var(--ff-mono);">Construction de système, risk management, psychologie — une formation complète par un praticien.</p>
+        <div style="font-family:var(--ff-mono);font-size:12px;color:var(--muted);margin-bottom:14px;">~<span style="color:var(--gold)">147 €</span> prix de lancement</div>
+        <div id="form-formation" style="display:flex;gap:8px;">
+          <input type="email" placeholder="ton@email.fr" id="email-formation" style="flex:1;background:var(--black2);border:1px solid var(--border2);color:var(--white);font-family:var(--ff-mono);font-size:11px;padding:10px 13px;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'">
+          <button onclick="signupWaitlist('formation')" style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--black);background:var(--gold);border:none;padding:10px 16px;cursor:pointer;white-space:nowrap;">Me notifier</button>
+        </div>
+        <div id="confirm-formation" style="display:none;font-family:var(--ff-mono);font-size:11px;color:var(--gold);padding:10px 0;">✓ Inscrit — tu seras parmi les premiers notifiés.</div>
+      </div>
+      <div class="form-card reveal reveal-d1">
+        <div style="font-family:var(--ff-mono);font-size:9px;letter-spacing:0.35em;color:var(--gold);text-transform:uppercase;border:1px solid var(--border2);padding:4px 12px;display:inline-block;margin-bottom:24px;">⟡ Coaching — Q4 2026</div>
+        <h3 style="font-size:26px;font-weight:300;margin-bottom:14px;">Coaching<br><em style="font-style:italic;color:var(--gold)">1-on-1</em></h3>
+        <p style="font-size:13px;color:var(--muted);line-height:1.8;margin-bottom:24px;font-family:var(--ff-mono);">Sessions individuelles d'analyse de journal, identification de tes patterns, plan d'action personnalisé.</p>
+        <div style="font-family:var(--ff-mono);font-size:12px;color:var(--muted);margin-bottom:14px;">~<span style="color:var(--gold)">97 € / session</span></div>
+        <div id="form-coaching" style="display:flex;gap:8px;">
+          <input type="email" placeholder="ton@email.fr" id="email-coaching" style="flex:1;background:var(--black2);border:1px solid var(--border2);color:var(--white);font-family:var(--ff-mono);font-size:11px;padding:10px 13px;outline:none;" onfocus="this.style.borderColor='var(--gold)'" onblur="this.style.borderColor='var(--border2)'">
+          <button onclick="signupWaitlist('coaching')" style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.15em;text-transform:uppercase;color:var(--black);background:var(--gold);border:none;padding:10px 16px;cursor:pointer;white-space:nowrap;">Me notifier</button>
+        </div>
+        <div id="confirm-coaching" style="display:none;font-family:var(--ff-mono);font-size:11px;color:var(--gold);padding:10px 0;">✓ Inscrit — tu seras parmi les premiers notifiés.</div>
+      </div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-family:var(--ff-mono);font-size:10px;letter-spacing:0.25em;color:var(--muted);text-transform:uppercase;">
+        <span id="waitlist-count" style="color:var(--gold)">0</span> personnes déjà sur la liste d'attente
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq" id="faq">
+  <div class="faq-inner">
+    <div class="section-header">
+      <div class="section-label reveal">Questions fréquentes</div>
+      <h2 class="section-title reveal">Tout ce que tu<br><em>veux savoir</em></h2>
+    </div>
+    <div style="margin-top:44px;">
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Comment fonctionne l'essai gratuit ?<span class="faq-ico">+</span></button>
+        <div class="faq-a"><p>Tu fournis ta carte bancaire à l'inscription mais aucun débit n'est effectué pendant 7 jours. Au 8e jour, l'abonnement démarre automatiquement à 8,88 €/mois. Tu peux résilier à tout moment avant le 8e jour sans frais.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Quels brokers sont compatibles avec l'import CSV ?<span class="faq-ico">+</span></button>
+        <div class="faq-a"><p>Chronicle supporte nativement MetaTrader 4, MetaTrader 5 et cTrader. Un guide pas-à-pas est intégré directement dans l'application. Tout broker proposant un export CSV standard est également compatible.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Mes données sont-elles sécurisées ?<span class="faq-ico">+</span></button>
+        <div class="faq-a"><p>Tes données sont chiffrées et stockées localement dans ton navigateur. Elles ne transitent jamais sur nos serveurs sans ton accord. Le site est servi en HTTPS avec un certificat SSL. La version cloud avec sauvegarde synchronisée est en cours de développement.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Quelle est la différence avec Tradezilla ou TraderSync ?<span class="faq-ico">+</span></button>
+        <div class="faq-a"><p>Chronicle est conçu par un trader actif qui utilise son propre produit au quotidien. L'interface est plus simple, plus rapide, le design est premium, et le tarif est nettement inférieur aux concurrents. Le support, c'est directement avec le fondateur.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Chronicle fonctionne-t-il sur mobile ?<span class="faq-ico">+</span></button>
+        <div class="faq-a"><p>Oui, Chronicle est entièrement responsive. L'interface s'adapte automatiquement aux petits écrans avec un menu drawer dédié et une vue calendrier optimisée pour le tactile.</p></div>
+      </div>
+      <div class="faq-item reveal">
+        <button class="faq-q" onclick="toggleFaq(this)">Comment résilier mon abonnement ?<span class="faq-ico">+</span></button>
+        <div class="faq-a"><p>La résiliation se fait en un clic depuis ton espace client Stripe, à tout moment, sans préavis. Tu gardes l'accès jusqu'à la fin de la période déjà payée.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="about" id="about">
+  <div class="about-label reveal">À propos</div>
+  <h2 class="about-title reveal">Pourquoi<br><em>Freedom Industries ?</em></h2>
+  <div class="about-body reveal">
+    <p>Après cinq ans à trader en indépendant, j'ai réalisé que les outils disponibles étaient soit trop compliqués, soit trop superficiels. Rien n'était conçu pour le trader sérieux qui veut progresser vraiment.</p>
+    <p>Freedom Industries, c'est ma réponse à ce problème. Je construis les outils que j'aurais voulu avoir dès le début — simples en apparence, puissants en profondeur. Chronicle est le premier. Il y en aura d'autres.</p>
+    <p style="color:var(--white)">La liberté financière ne se décrète pas. Elle se gagne, un trade à la fois, avec la bonne infrastructure.</p>
+  </div>
+  <div class="about-sig reveal">François — Freedom Industries</div>
+</section>
+
+<footer>
+  <div class="footer-logo">Freedom Industries</div>
+  <div class="footer-links">
+    <a href="#products">Produits</a>
+    <a href="#chronicle">Chronicle</a>
+    <a href="#testimonials">Avis</a>
+    <a href="#faq">FAQ</a>
+    <a href="#about">À propos</a>
+    <a href="/cdn-cgi/l/email-protection#355347545b564151565953755258545c591b565a58">Contact</a>
+  </div>
+  <div class="footer-copy">© 2025 Freedom Industries</div>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// ── SCROLL REVEAL
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+// ── NAV SCROLL
+window.addEventListener('scroll', function() {
+  document.getElementById('main-nav').classList.toggle('scrolled', window.scrollY > 50);
+});
+
+// ── FAQ
+function toggleFaq(btn) {
+  var ans = btn.nextElementSibling;
+  var ico = btn.querySelector('.faq-ico');
+  var isOpen = ans.classList.contains('open');
+  document.querySelectorAll('.faq-a').forEach(function(a) { a.classList.remove('open'); });
+  document.querySelectorAll('.faq-ico').forEach(function(i) { i.textContent = '+'; });
+  if (!isOpen) { ans.classList.add('open'); ico.textContent = '−'; }
+}
+
+// ── WAITLIST
+function signupWaitlist(type) {
+  var email = document.getElementById('email-' + type).value.trim();
+  if (!email || email.indexOf('@') === -1) {
+    document.getElementById('email-' + type).style.borderColor = '#ef4444';
+    setTimeout(function() { document.getElementById('email-' + type).style.borderColor = 'var(--border2)'; }, 1500);
+    return;
+  }
+  var list = JSON.parse(localStorage.getItem('wl_' + type) || '[]');
+  if (list.indexOf(email) === -1) { list.push(email); localStorage.setItem('wl_' + type, JSON.stringify(list)); }
+  document.getElementById('form-' + type).style.display = 'none';
+  document.getElementById('confirm-' + type).style.display = 'block';
+  updateCount();
+}
+
+function updateCount() {
+  var f = JSON.parse(localStorage.getItem('wl_formation') || '[]').length;
+  var co = JSON.parse(localStorage.getItem('wl_coaching') || '[]').length;
+  document.getElementById('waitlist-count').textContent = f + co;
+}
+updateCount();
+
+// ── DEMO PULSE on scroll
+var calObserver = new IntersectionObserver(function(entries) {
+  if (entries[0].isIntersecting) {
+    var days = ['d3','d4','d5','d6','d7'];
+    days.forEach(function(id, i) {
+      setTimeout(function() {
+        var el = document.getElementById(id);
+        if (el) {
+          el.style.transform = 'scale(1.15)';
+          setTimeout(function() { el.style.transform = 'scale(1)'; }, 250);
+        }
+      }, i * 200);
+    });
+  }
+}, { threshold: 0.5 });
+
+var demoEl = document.querySelector('.demo-wrap');
+if (demoEl) { calObserver.observe(demoEl); }
+
+// ── COMPTEUR ANIMÉ
+function animateCounter(el, target, duration) {
+  var start = 0;
+  var step = target / (duration / 16);
+  var isMillions = target >= 1000000;
+  var isThousands = target >= 1000 && target < 1000000;
+  var timer = setInterval(function() {
+    start += step;
+    if (start >= target) { start = target; clearInterval(timer); }
+    var display;
+    if (isMillions) { display = (start / 1000000).toFixed(1) + 'M'; }
+    else if (isThousands) { display = Math.round(start / 100) * 100; if (start >= target) display = target.toLocaleString('fr-FR'); }
+    else { display = Math.round(start); }
+    el.textContent = display;
+  }, 16);
+}
+
+var statsObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(entry) {
+    if (entry.isIntersecting) {
+      var nums = entry.target.querySelectorAll('.stat-num');
+      nums.forEach(function(el) {
+        var target = parseInt(el.getAttribute('data-target'));
+        animateCounter(el, target, 1800);
+      });
+      statsObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.3 });
+
+var statsSection = document.querySelector('[data-target]');
+if (statsSection) { statsObserver.observe(statsSection.closest('section')); }
+</script>
+</body>
+</html>
